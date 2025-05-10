@@ -1,0 +1,71 @@
+name: Build and Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  qodana:
+    permissions:
+      contents: write
+      pull-requests: write
+      checks: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} 
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Qodana Scan
+        uses: JetBrains/qodana-action@v2025.1
+        with:
+          args: --linter,jetbrains/qodana-jvm-community:2025.1
+          upload-result: true
+      - uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
+
+  build:
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        jdk: [ 24 ]
+        os: [ ubuntu-latest, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+          persist-credentials: false
+    - name: Set up JDK ${{ matrix.jdk }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: '${{ matrix.jdk }}'
+        distribution: 'temurin'
+        check-latest: true
+        cache: maven
+    - name: Verify with Maven
+      run: ./mvnw -V clean verify --file pom.xml
+    - name: Build with Maven
+      run: ./mvnw -V package --file pom.xml
+    - uses: actions/upload-artifact@v4
+      if: ${{ contains(matrix.os, 'ubuntu') }}
+      with:
+        name: cupbuild
+        path: |
+          ./LICENSE
+          ./README.md
+          ./target/cupbuild-*.jar
+          ./target/libs
+    - name: Update dependency graph
+      uses: advanced-security/maven-dependency-submission-action@v4
