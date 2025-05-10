@@ -7,6 +7,9 @@ mvn +ARGS:
 version-check:
     ./mvnw versions:display-dependency-updates versions:display-plugin-updates versions:display-property-updates
 
+license:
+    ./mvnw license:aggregate-download-licenses license:aggregate-third-party-report
+
 verify:
     ./mvnw verify
 
@@ -31,7 +34,7 @@ package:
 
 prod:
     ./mvnw -V clean verify --file pom.xml
-    ./mvnw -V package --file pom.xml
+    ./mvnw -V package license:aggregate-download-licenses --file pom.xml
 
 clean:
     ./mvnw clean
