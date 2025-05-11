@@ -27,7 +27,10 @@ apply:
     ./mvnw spotless:apply
 
 exec:
-    ./mvnw exec:java
+    ./mvnw compile exec:java
+
+compile:
+    ./mvnw compile
 
 package:
     ./mvnw package
@@ -35,6 +38,9 @@ package:
 prod:
     ./mvnw -V clean verify --file pom.xml
     ./mvnw -V package license:aggregate-download-licenses --file pom.xml
+
+install:
+    ./mvnw install
 
 clean:
     ./mvnw clean

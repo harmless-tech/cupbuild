@@ -20,10 +20,6 @@
     <url>https://github.com/harmless-tech/cupbuild/issues</url>
   </issueManagement>
 
-  <!-- <modules>
-    <module>cupbuild</module>
-  </modules> -->
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>24</maven.compiler.release>
@@ -40,6 +36,12 @@
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
       <version>26.0.2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-toml -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-toml</artifactId>
+      <version>2.19.0</version>
     </dependency>
 
     <!-- Testing -->
@@ -60,6 +62,27 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <targetPath>${project.build.outputDirectory}/META-INF/tech.harmless.cupbuild</targetPath>
+        <directory>./</directory>
+        <includes>
+          <include>LICENSE</include>
+        </includes>
+      </resource>
+      <resource>
+        <targetPath>${build.outputDirectory}/META-INF/tech.harmless.cupbuild/third-party</targetPath>
+        <directory>${project.build.directory}/generated-resources</directory>
+        <includes>
+          <include>licenses/*</include>
+          <include>licenses.xml</include>
+        </includes>
+      </resource>
+    </resources>
+
     <plugins>
       <!-- https://maven.apache.org/plugins/maven-compiler-plugin/ -->
       <plugin>
@@ -210,6 +233,14 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>2.5.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>aggregate-download-licenses</goal>
+            </goals>
+            <phase>generate-resources</phase>
+          </execution>
+        </executions>
       </plugin>
 
       <!-- https://www.mojohaus.org/exec-maven-plugin/usage.html -->
@@ -226,7 +257,6 @@
             <goals>
               <goal>java</goal>
             </goals>
-            <phase>exec</phase>
           </execution>
         </executions>
       </plugin>
@@ -237,9 +267,6 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <version>2.44.4</version>
         <configuration>
-          <excludes>
-            <exclude>target/**</exclude>
-          </excludes>
           <java>
             <includes>
               <include>src/main/java/**/*.java</include>
@@ -247,11 +274,12 @@
             </includes>
             <licenseHeader>
               <content>/*
+                * Copyright (c) $YEAR harmless-tech
+                * SPDX-License-Identifier: MPL-2.0
+                *
                 * This Source Code Form is subject to the terms of the Mozilla Public
                 * License, v. 2.0. If a copy of the MPL was not distributed with this
                 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
-                *
-                * Copyright (c) $YEAR harmless-tech
                 */</content>
             </licenseHeader>
             <removeUnusedImports></removeUnusedImports>
