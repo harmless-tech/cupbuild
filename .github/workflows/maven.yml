@@ -71,4 +71,4 @@ jobs:
           ./target/generated-resources/licenses.xml
           ./target/generated-resources/licenses
     - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v4
+      uses: advanced-security/maven-dependency-submission-action@v5
