@@ -26,7 +26,7 @@
 
     <project.mainClass>tech.harmless.cupbuild.App</project.mainClass>
 
-    <junit.version>5.12.2</junit.version>
+    <junit.version>5.13.1</junit.version>
   </properties>
 
   <dependencies>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
       <artifactId>jackson-dataformat-toml</artifactId>
-      <version>2.19.0</version>
+      <version>2.19.1</version>
     </dependency>
 
     <!-- Testing -->
@@ -247,7 +247,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.1</version>
         <configuration>
           <mainClass>${project.mainClass}</mainClass>
           <executable>${project.name}</executable>
@@ -265,7 +265,7 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <version>2.44.4</version>
+        <version>2.44.5</version>
         <configuration>
           <java>
             <includes>
