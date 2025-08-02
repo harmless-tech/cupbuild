@@ -28,7 +28,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - name: Qodana Scan
-        uses: JetBrains/qodana-action@v2025.1
+        uses: JetBrains/qodana-action@v2025.1.1
         with:
           args: --linter,jetbrains/qodana-jvm-community:2025.1
           upload-result: true
@@ -72,3 +72,35 @@ jobs:
           ./target/generated-resources/licenses
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v5
+
+  native-build:
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        jdk: [ 24 ]
+        os: [ ubuntu-latest, ubuntu-24.04-arm, macos-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+          persist-credentials: false
+    - name: Set up JDK ${{ matrix.jdk }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: '${{ matrix.jdk }}'
+        distribution: 'graalvm'
+        check-latest: true
+        cache: maven
+    - name: Build with Maven
+      run: ./mvnw -V -Pnative package license:aggregate-download-licenses --file pom.xml
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cupbuild-dev-native${{ matrix.jdk }}-${{ matrix.os }}
+        path: |
+          ./LICENSE
+          ./README.md
+          ./target/cupbuild*
+          ./target/libs
+          ./target/generated-resources/licenses.xml
+          ./target/generated-resources/licenses

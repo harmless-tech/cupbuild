@@ -20,6 +20,8 @@ buildNumber.properties
 .idea/
 .vscode/
 
+future-look/
+
 temp/
 tmp/
 *.tmp
