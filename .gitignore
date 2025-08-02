@@ -20,5 +20,7 @@ buildNumber.properties
 .idea/
 .vscode/
 
-# Jetbrains Qodana
-.qres/
+temp/
+tmp/
+*.tmp
+*.temp

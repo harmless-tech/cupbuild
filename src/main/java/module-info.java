@@ -1,6 +1,8 @@
 // TODO: open?
 module tech.harmless.cupbuild {
     requires org.jetbrains.annotations;
+    requires org.tinylog.api;
+    requires org.tinylog.impl;
 
     // Jackson is kinda heavy, custom?
     requires com.fasterxml.jackson.core;

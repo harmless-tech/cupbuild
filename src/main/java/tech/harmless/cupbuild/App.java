@@ -8,8 +8,27 @@
  */
 package tech.harmless.cupbuild;
 
+import java.io.File;
+import org.tinylog.Logger;
+import tech.harmless.cupbuild.experimental.InvokeJava;
+import tech.harmless.cupbuild.experimental.ManifestParser;
+
 public final class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.setProperty("cupbuild.target.dir", "./target");
+        Thread.currentThread().setName("main");
+        Logger.info("CupBuild started!");
+
+        // TODO: Lock file in target/cupbuild.lockable. print pid in file in case of stuff...
+
+        // TODO: Trying
+        InvokeJava.getJavaProcess();
+        try {
+            ManifestParser.parse(new File("./future-look/CupBuild.toml"));
+            throw new RuntimeException("No TIME!");
+        } catch (Exception e) {
+            Logger.error(e);
+        }
+        //
     }
 }
