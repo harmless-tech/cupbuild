@@ -30,7 +30,7 @@ jobs:
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.1.1
         with:
-          args: --linter,jetbrains/qodana-jvm-community:2025.1
+          args: --linter,jetbrains/qodana-jvm-community:2025.2
           upload-result: true
       - uses: github/codeql-action/upload-sarif@v3
         with:
@@ -93,14 +93,15 @@ jobs:
         check-latest: true
         cache: maven
     - name: Build with Maven
-      run: ./mvnw -V -Pnative package license:aggregate-download-licenses --file pom.xml
+      run: ./mvnw -V -Pnative clean package license:aggregate-download-licenses --file pom.xml
     - uses: actions/upload-artifact@v4
       with:
         name: cupbuild-dev-native${{ matrix.jdk }}-${{ matrix.os }}
         path: |
           ./LICENSE
           ./README.md
-          ./target/cupbuild*
+          ./target/exe/cupbuild*
+          ./target/cupbuild-*.jar
           ./target/libs
           ./target/generated-resources/licenses.xml
           ./target/generated-resources/licenses

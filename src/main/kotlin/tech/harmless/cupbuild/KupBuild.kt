@@ -6,16 +6,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
-package tech.harmless.cupbuild;
+package tech.harmless.cupbuild
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
-// TODO: Move tests to seperate module.
-public class AppTest {
-    @Test
-    void alwaysTrue() {
-        assertTrue(true);
+/** This is a class! */
+class KupBuild() {
+    fun hello() {
+        println("This is hello!")
     }
 }
