@@ -27,9 +27,6 @@
 
     <project.mainClass>tech.harmless.cupbuild.App</project.mainClass>
 
-    <kotlin.version>2.2.0</kotlin.version>
-    <!-- <kotlin.compiler.incremental>true</kotlin.compiler.incremental>-->
-
     <tinylog.version>2.7.0</tinylog.version>
     <junit.version>5.13.4</junit.version>
   </properties>
@@ -61,20 +58,6 @@
       <version>${tinylog.version}</version>
     </dependency>
 
-    <!-- Kotlin -->
-    <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib -->
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-reflect -->
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-reflect</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-
     <!-- Testing -->
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
     <dependency>
@@ -88,13 +71,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-test-junit -->
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test-junit</artifactId>
-      <version>${kotlin.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -111,52 +87,9 @@
           <include>LICENSE</include>
         </includes>
       </resource>
-      <resource>
-        <targetPath>${project.build.outputDirectory}/META-INF/tech/harmless/cupbuild/third-party</targetPath>
-        <directory>${project.build.directory}/generated-resources</directory>
-        <includes>
-          <include>licenses/*</include>
-          <include>licenses.xml</include>
-        </includes>
-      </resource>
     </resources>
 
     <plugins>
-      <plugin>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-maven-plugin</artifactId>
-        <version>${kotlin.version}</version>
-        <configuration>
-          <jvmTarget>${maven.compiler.release}</jvmTarget>
-        </configuration>
-        <executions>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                <sourceDir>${project.basedir}/src/main/java</sourceDir>
-              </sourceDirs>
-            </configuration>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                <sourceDir>${project.basedir}/src/test/java</sourceDir>
-              </sourceDirs>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -169,30 +102,6 @@
             <compilerArg>-Xlint:all</compilerArg>
           </compilerArgs>
         </configuration>
-        <executions>
-          <execution>
-            <id>default-compile</id>
-            <phase>none</phase>
-          </execution>
-          <execution>
-            <id>default-testCompile</id>
-            <phase>none</phase>
-          </execution>
-          <execution>
-            <id>java-compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <phase>compile</phase>
-          </execution>
-          <execution>
-            <id>java-test-compile</id>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <phase>test-compile</phase>
-          </execution>
-        </executions>
       </plugin>
 
       <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
@@ -343,14 +252,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>2.6.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>aggregate-download-licenses</goal>
-            </goals>
-            <phase>generate-resources</phase>
-          </execution>
-        </executions>
       </plugin>
 
       <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
@@ -395,22 +296,6 @@
             </palantirJavaFormat>
             <formatAnnotations/>
           </java>
-          <kotlin>
-            <includes>
-              <include>src/main/kotlin/**/*.kt</include>
-              <include>src/test/kotlin/**/*.kt</include>
-            </includes>
-            <ktfmt>
-              <!-- https://github.com/facebook/ktfmt/releases -->
-              <version>0.56</version>
-              <style>KOTLINLANG</style>
-              <removeUnusedImports>true</removeUnusedImports>
-              <manageTrailingCommas>true</manageTrailingCommas>
-            </ktfmt>
-            <licenseHeader>
-              <file>${project.basedir}/other/license-header</file>
-            </licenseHeader>
-          </kotlin>
           <pom>
             <sortPom/>
           </pom>

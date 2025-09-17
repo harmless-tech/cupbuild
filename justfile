@@ -28,9 +28,11 @@ javadoc:
     {{ CMD }} compile javadoc:javadoc
     open ./target/reports/apidocs/index.html
 
+fmt: apply
 apply:
     {{ CMD }} spotless:apply
 
+run: exec
 exec:
     {{ CMD }} compile exec:java
 
@@ -45,7 +47,7 @@ native-package:
 
 prod:
     {{ CMD }} -V clean verify --file pom.xml
-    {{ CMD }} -V package license:aggregate-download-licenses --file pom.xml
+    {{ CMD }} -V package --file pom.xml
 
 install:
     {{ CMD }} install

@@ -58,7 +58,7 @@ jobs:
     - name: Verify with Maven
       run: ./mvnw -V clean verify --file pom.xml
     - name: Build with Maven
-      run: ./mvnw -V package license:aggregate-download-licenses --file pom.xml
+      run: ./mvnw -V package --file pom.xml
     - uses: actions/upload-artifact@v4
       if: ${{ contains(matrix.os, 'ubuntu') }}
       with:
@@ -68,8 +68,6 @@ jobs:
           ./README.md
           ./target/cupbuild-*.jar
           ./target/libs
-          ./target/generated-resources/licenses.xml
-          ./target/generated-resources/licenses
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v5
 
@@ -93,7 +91,7 @@ jobs:
         check-latest: true
         cache: maven
     - name: Build with Maven
-      run: ./mvnw -V -Pnative clean package license:aggregate-download-licenses --file pom.xml
+      run: ./mvnw -V -Pnative clean package --file pom.xml
     - uses: actions/upload-artifact@v4
       with:
         name: cupbuild-dev-native${{ matrix.jdk }}-${{ matrix.os }}
@@ -103,5 +101,3 @@ jobs:
           ./target/exe/cupbuild*
           ./target/cupbuild-*.jar
           ./target/libs
-          ./target/generated-resources/licenses.xml
-          ./target/generated-resources/licenses

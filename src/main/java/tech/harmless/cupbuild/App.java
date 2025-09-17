@@ -52,8 +52,5 @@ public final class App {
             Logger.error(e);
         }
         //
-
-        var kup = new KupBuild();
-        kup.hello();
     }
 }

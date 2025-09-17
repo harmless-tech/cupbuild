@@ -14,8 +14,5 @@ module tech.harmless.cupbuild {
     requires java.base;
     requires java.compiler;
 
-    // Kotlin Stdlib
-    requires kotlin.stdlib;
-
     exports tech.harmless.cupbuild;
 }
