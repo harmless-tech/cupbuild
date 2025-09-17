@@ -36,12 +36,6 @@
 
   <dependencies>
     <!-- Compile -->
-    <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
-    <!--<dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations</artifactId>
-      <version>26.0.2</version>
-    </dependency>-->
     <!-- https://mvnrepository.com/artifact/org.jspecify/jspecify -->
     <dependency>
       <groupId>org.jspecify</groupId>
@@ -342,16 +336,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
         <version>2.18.0</version>
-        <!-- <executions>
-                  <execution>
-                    <goals>
-                      <goal>display-dependency-updates</goal>
-                      <goal>display-plugin-updates</goal>
-                      <goal>display-property-updates</goal>
-                    </goals>
-                    <phase>verify</phase>
-                  </execution>
-                </executions> -->
       </plugin>
 
       <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/license-maven-plugin -->
