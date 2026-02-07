@@ -19,10 +19,15 @@ test:
     {{ CMD }} test
 
 qcheck:
-    docker run --rm -it -p 8080:8080 \
+    mkdir -p ./tmp/qres
+    mkdir -p ./tmp/qres-cache
+    podman run --rm -it -p 8080:8080 \
         -v ./:/data/project/ \
         -v ./tmp/qres:/data/results/ \
-        jetbrains/qodana-jvm-community:latest --show-report
+        -v ./tmp/qres-cache:/data/cache/ \
+        docker.io/jetbrains/qodana-jvm-community:latest \
+        --show-report \
+        --cache-dir /data/cache/
 
 javadoc:
     {{ CMD }} compile javadoc:javadoc

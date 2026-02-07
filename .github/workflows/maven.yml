@@ -30,7 +30,7 @@ jobs:
       - name: Qodana Scan
         uses: JetBrains/qodana-action@v2025.3.1
         with:
-          #args: --linter,jetbrains/qodana-jvm-community:2025.2
+          args: --linter,jetbrains/qodana-jvm-community:2025.3
           upload-result: true
       - uses: github/codeql-action/upload-sarif@v4
         with:

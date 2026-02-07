@@ -13,7 +13,7 @@ licenseRules:
     allowed:
       - "Apache-2.0"
 
-exclude:
-  - name: UnstableApiUsage
-    paths:
-      - src/main/java/tech/harmless/cupbuild/package-info.java
+# exclude:
+#   - name: UnstableApiUsage
+#     paths:
+#       - src/main/java/tech/harmless/cupbuild/package-info.java

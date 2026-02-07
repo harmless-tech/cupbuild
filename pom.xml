@@ -100,7 +100,18 @@
           <showWarnings>true</showWarnings>
           <compilerArgs>
             <compilerArg>-Xlint:all</compilerArg>
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
+            <arg>-Xplugin:ErrorProne</arg>
           </compilerArgs>
+          <annotationProcessorPaths>
+            <path>
+              <!-- https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core -->
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>2.47.0</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
 
@@ -226,7 +237,7 @@
         <configuration>
           <rules>
             <requireMavenVersion>
-              <version>4.0.0</version>
+              <version>[4.0.0-rc5,)</version>
             </requireMavenVersion>
           </rules>
         </configuration>
@@ -375,6 +386,7 @@
                 <!-- <buildArg>-O3</buildArg> -->
                 <!-- <buildArg>-g</buildArg> -->
                 <buildArg>--enable-sbom</buildArg>
+                <buildArg>--future-defaults=all</buildArg>
               </buildArgs>
               <outputDirectory>${project.build.directory}/exe</outputDirectory>
             </configuration>
